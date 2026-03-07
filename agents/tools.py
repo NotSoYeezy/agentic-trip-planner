@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
 from langchain.tools import ToolRuntime, tool
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, ToolMessage
 from langgraph.types import Command
-from langchain_core.messages import ToolMessage
 from tavily import TavilyClient
+
 from agents.config import settings
 
 tavily_client = TavilyClient(api_key=settings.tavily_api_key)
@@ -80,7 +80,16 @@ def make_search_attractions(agent):
         Attractions agent searches for interesting tourist attractions, museums, POI, restaurants
         """
         destination = runtime.state['destination']
-        query = f"Find best tourist attractions, museums, POIs, restaurants in {destination}, remember about the budget!"
+        remaining_budget = runtime.state.get('remaining_budget', 'unknown')
+        query = (
+            f"Research {destination} and cover these 4 categories:\n"
+            f"1. Iconic landmarks and must-see sights (top 3–4)\n"
+            f"2. Nature and outdoor experiences (parks, beaches, hikes)\n"
+            f"3. Local areas, markets, and street food\n"
+            f"4. Restaurants — one budget, one mid-range, one splurge pick\n"
+            f"Remaining budget for activities: ${remaining_budget}. "
+            f"Use exactly 4 web searches, one per category. Stop after 4 searches."
+        )
         response = agent.invoke({"messages": [HumanMessage(content=query)]})
         return response['messages'][-1].content
     return search_attractions
