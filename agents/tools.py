@@ -18,8 +18,8 @@ async def web_search(query: str) -> Dict[str, Any]:
 
 
 @tool
-async def update_state(origin: str, destination: str, initial_budget: int, remaining_budget: int, date_from: str, date_to: str,
-                       runtime: ToolRuntime) -> Command:
+async def update_state(origin: str, destination: str, initial_budget: int, remaining_budget: int, date_from: str,
+                       date_to: str, runtime: ToolRuntime) -> Command:
     """
     Update the state when you know all the values:
         - origin
