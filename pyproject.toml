@@ -12,6 +12,7 @@ dependencies = [
     "uvicorn>=0.41.0",
     "asyncio>=4.0.0",
     "langchain-mcp-adapters>=0.2.1",
+    "pre-commit>=4.5.1",
 ]
 
 [dependency-groups]
