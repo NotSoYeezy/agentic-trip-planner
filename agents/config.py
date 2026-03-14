@@ -13,6 +13,7 @@ class Settings(BaseSettings):
 
     coordinator_model: str = "qwen/qwen3-next-80b-a3b-instruct"
     attractions_model: str = "qwen/qwen3-next-80b-a3b-instruct"
+    flight_search_model: str = "qwen/qwen3-next-80b-a3b-instruct"
     nvidia_api_key: str = ""
     tavily_api_key: str = ""
 
